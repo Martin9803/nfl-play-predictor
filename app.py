@@ -10,7 +10,15 @@ This tool predicts the optimal offensive play (run, pass, punt, field goal) base
 Select the scenario below:
 """)
 
-team = st.selectbox("Select Team", ["Eagles", "Chiefs", "49ers", "Bills", "Titans"])
+nfl_teams = sorted([
+    "49ers", "Bears", "Bengals", "Bills", "Broncos", "Browns", "Buccaneers",
+    "Cardinals", "Chargers", "Chiefs", "Colts", "Commanders", "Cowboys",
+    "Dolphins", "Eagles", "Falcons", "Giants", "Jaguars", "Jets", "Lions",
+    "Packers", "Panthers", "Patriots", "Raiders", "Rams", "Ravens",
+    "Saints", "Seahawks", "Steelers", "Texans", "Titans", "Vikings"
+])
+
+team = st.selectbox("Select Team", nfl_teams)
 down = st.selectbox("Down", [1, 2, 3, 4])
 distance = st.slider("Yards to First Down", 1, 20, 10)
 yard_line = st.slider("Yard Line (1 = own end zone, 99 = opponent's)", 1, 99, 50)
@@ -37,3 +45,4 @@ if st.button("Predict Best Play"):
 
     st.subheader("Team Analytics")
     st.json(team_stats)
+
