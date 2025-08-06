@@ -20,7 +20,7 @@ nfl_teams = sorted([
 
 team = st.selectbox("Select Team", nfl_teams)
 down = st.selectbox("Down", [1, 2, 3, 4])
-distance = st.slider("Yards to First Down", 1, 20, 10)
+distance = st.slider("Yards to First Down", 1, 30, 10)
 yard_line = st.slider("Yard Line (1 = own end zone, 99 = opponent's)", 1, 99, 50)
 quarter = st.selectbox("Quarter", [1, 2, 3, 4])
 time_remaining = st.number_input("Time Remaining in Quarter (sec)", min_value=0, max_value=900, value=300)
@@ -45,4 +45,5 @@ if st.button("Predict Best Play"):
 
     st.subheader("Team Analytics")
     st.json(team_stats)
+
 
