@@ -20,11 +20,18 @@ nfl_teams = sorted([
 
 team = st.selectbox("Select Team", nfl_teams)
 down = st.selectbox("Down", [1, 2, 3, 4])
-distance = st.slider("Yards to First Down", 1, 30, 10)
+distance = st.slider("Yards to First Down", 1, 20, 10)
 yard_line = st.slider("Yard Line (1 = own end zone, 99 = opponent's)", 1, 99, 50)
 quarter = st.selectbox("Quarter", [1, 2, 3, 4])
-time_remaining = st.number_input("Time Remaining in Quarter (sec)", min_value=0, max_value=900, value=300)
+gameclock = st.text_input("Time Remaining in Quarter (mm:ss)", value="5:00")
 score_diff = st.number_input("Score Differential (team - opponent)", value=0)
+
+# Convert mm:ss to total seconds
+try:
+    minutes, seconds = map(int, gameclock.strip().split(":"))
+    time_remaining = minutes * 60 + seconds
+except:
+    time_remaining = 0
 
 if st.button("Predict Best Play"):
     scenario = {
@@ -45,5 +52,6 @@ if st.button("Predict Best Play"):
 
     st.subheader("Team Analytics")
     st.json(team_stats)
+
 
 
