@@ -24,7 +24,7 @@ distance = st.slider("Yards to First Down", 1, 20, 10)
 yard_line = st.slider("Yard Line (1 = own end zone, 99 = opponent's)", 1, 99, 50)
 quarter = st.selectbox("Quarter", [1, 2, 3, 4])
 gameclock = st.text_input("Time Remaining in Quarter (mm:ss)", value="5:00")
-score_diff = st.number_input("Score Differential (team - opponent)", value=0)
+score_diff = st.text_input("Score Differential (your_team - opponent_team)", value="0")
 
 # Convert mm:ss to total seconds
 try:
@@ -32,6 +32,12 @@ try:
     time_remaining = minutes * 60 + seconds
 except:
     time_remaining = 0
+
+# Convert score differential input to integer
+try:
+    score_diff_int = int(score_diff.strip())
+except:
+    score_diff_int = 0
 
 if st.button("Predict Best Play"):
     scenario = {
@@ -41,7 +47,7 @@ if st.button("Predict Best Play"):
         "yard_line": yard_line,
         "quarter": quarter,
         "time_remaining": time_remaining,
-        "score_diff": score_diff
+        "score_diff": score_diff_int
     }
 
     team_stats = load_team_stats(team)
@@ -52,6 +58,7 @@ if st.button("Predict Best Play"):
 
     st.subheader("Team Analytics")
     st.json(team_stats)
+
 
 
 
