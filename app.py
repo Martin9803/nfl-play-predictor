@@ -1,6 +1,8 @@
 import streamlit as st
 from models.predictor import predict_play
-
+from utils.data_loader import load_team_rank
+import json
+import os
 
 st.set_page_config(page_title="NFL Play Predictor", layout="centered")
 st.title("🏈 NFL Play Predictor")
@@ -39,6 +41,14 @@ try:
 except:
     score_diff_int = 0
 
+# Load rankings JSON
+rank_path = os.path.join("data", "team_ranks.json")
+with open(rank_path, "r") as f:
+    ranks = json.load(f)
+
+team_key = team.lower()
+rank_info = ranks.get(team_key, {})
+
 if st.button("Predict Best Play"):
     scenario = {
         "team": team,
@@ -54,6 +64,18 @@ if st.button("Predict Best Play"):
 
     st.subheader("Prediction Result")
     st.success(f"{team} should: **{prediction.upper()}**")
+
+    if rank_info:
+        pass_rank = rank_info.get("pass_rank")
+        rush_rank = rank_info.get("rush_rank")
+        st.caption(f"📊 {team} — Pass Rank: #{pass_rank}, Rush Rank: #{rush_rank}")
+
+        if prediction.startswith("run"):
+            st.info("Rushing suggested based on superior rushing rank.")
+        elif prediction.startswith("pass"):
+            st.info("Passing suggested based on superior passing rank.")
+
+
 
 
 
