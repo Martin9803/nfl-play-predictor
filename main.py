@@ -5,3 +5,4 @@ if __name__ == "__main__":
     scenario = get_game_scenario()
     decision = predict_play(scenario)
     print("Predicted Offensive Play:", decision)
+
