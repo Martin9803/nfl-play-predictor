@@ -1,6 +1,5 @@
 import streamlit as st
 from models.predictor import predict_play
-from utils.data_loader import load_team_rank
 import json
 import os
 
@@ -74,6 +73,8 @@ if st.button("Predict Best Play"):
             st.info("Rushing suggested based on superior rushing rank.")
         elif prediction.startswith("pass"):
             st.info("Passing suggested based on superior passing rank.")
+
+
 
 
 
