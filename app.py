@@ -1,6 +1,6 @@
 import streamlit as st
 from models.predictor import predict_play
-from utils.data_loader import load_team_stats, load_team_rank
+from .utils.data_loader import load_team_stats, load_team_rank
 
 st.set_page_config(page_title="NFL Play Predictor", layout="centered")
 st.title("🏈 NFL Play Predictor")
@@ -72,6 +72,7 @@ if st.button("Predict Best Play"):
 
     st.subheader("Team Analytics")
     st.json({"stats": team_stats, "rankings": rank_info})
+
 
 
 
