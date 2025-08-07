@@ -50,28 +50,11 @@ if st.button("Predict Best Play"):
         "score_diff": score_diff_int
     }
 
-    team_stats = load_team_stats(team)
-    rank_info = load_team_rank(team)
     prediction = predict_play(scenario)
 
     st.subheader("Prediction Result")
     st.success(f"{team} should: **{prediction.upper()}**")
 
-    if rank_info:
-        pass_rank = rank_info.get("pass_rank")
-        rush_rank = rank_info.get("rush_rank")
-        st.caption(f"📊 Based on team rankings — Pass Rank: #{pass_rank}, Rush Rank: #{rush_rank}")
-        if prediction.startswith("run"):
-            st.info("Rushing strategy is favored due to strong rushing rank.")
-        elif prediction.startswith("pass"):
-            st.info("Passing strategy is favored due to stronger pass rank.")
-        elif prediction == "field goal":
-            st.info("Field goal likely due to short 4th down near FG range.")
-        elif prediction == "punt":
-            st.info("Punt suggested due to 4th and long situation.")
-
-    st.subheader("Team Analytics")
-    st.json({"stats": team_stats, "rankings": rank_info})
 
 
 
